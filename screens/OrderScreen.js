@@ -14,7 +14,7 @@ import { FontAwesome } from "@expo/vector-icons";
 import OrderItem from "../components/OrderItem";
 
 import PaypalView from "../components/PaypalView";
-import { getProduct, makePayment } from "../services/Api";
+import { getProduct, makePayment } from "../services/api";
 
 export default function OrderScreen({ route, navigation }) {
   const [product, setProduct] = useState(route.params.product);

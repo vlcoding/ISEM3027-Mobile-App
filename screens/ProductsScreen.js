@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, FlatList, Button } from "react-native";
 
 import ProductItem from "../components/ProductItem";
-import { getProducts } from "../services/Api";
+import { getProducts } from "../services/api";
 
 export default function ProductsScreen({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);

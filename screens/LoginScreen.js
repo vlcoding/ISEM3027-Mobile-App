@@ -11,7 +11,7 @@ import {
 } from "react-native";
 
 import { Input, Icon } from "react-native-elements";
-import { apiLogin, apiRegister } from "../services/Api";
+import { apiLogin, apiRegister } from "../services/api";
 import { AuthContext } from "../navigation/context";
 
 export default function LoginScreen() {
