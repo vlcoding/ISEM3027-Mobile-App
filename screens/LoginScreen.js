@@ -11,8 +11,13 @@ import {
 } from "react-native";
 
 import { Input, Icon } from "react-native-elements";
+import { apiLogin, apiRegister } from "../services/Api";
+import { AuthContext } from "../navigation/context";
 
 export default function LoginScreen() {
+  // Context Hook
+  const { signIn, signUp } = useContext(AuthContext);
+
   const [isLoading, setIsLoading] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -50,12 +55,37 @@ export default function LoginScreen() {
         setIsLoading(false);
         return; // if not match, return message to user and do nothing
       }
-      alert("Register");
-      console.log(username, password, password2);
+      // if 2 password match, using apiRegister to send
+      // username and 2 passwords to server
+      const { created } = await apiRegister({ username, password, password2 });
+      // user create successfull
+      if (created) {
+        // log user in
+        const response = await apiLogin({ username, password });
+        if (response.error) {
+          // display any errors from server
+          setErrorMessage(response.error);
+        } else {
+          // use signIn function to log down
+          // the username and usertoken in local device
+          setErrorMessage(null);
+          signIn(response.token, response.username);
+        }
+      }
     } else {
-      alert("Login");
-      console.log(username, password);
+      // when login, using apiLogin to send username and password to server
+      const response = await apiLogin({ username, password });
+      if (response.error) {
+        // display error response from server
+        setErrorMessage(response.error);
+      } else {
+        // use signIn function to log down
+        // the username and usertoken in local device
+        setErrorMessage(null);
+        signIn(response.token, response.username);
+      }
     }
+
     setIsLoading(false);
   };
 

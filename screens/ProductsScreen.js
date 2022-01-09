@@ -1,41 +1,12 @@
-import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  FlatList,
-  TouchableOpacity,
-  Image,
-} from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, Text, View, FlatList, Button } from "react-native";
+
 import ProductItem from "../components/ProductItem";
+import { getProducts } from "../services/Api";
 
 export default function ProductsScreen({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
-  const [productsList, setProductsList] = useState([
-    {
-      id: 1,
-      name: "pearl",
-      price: "99.99",
-      discount: 1.0,
-      quantity: 10,
-      description: "This is a pearl",
-      picture: "",
-      created: "2018-12-22",
-      updated: "2019-02-16",
-    },
-    {
-      id: 2,
-      name: "Apple",
-      price: "1.99",
-      discount: 1.0,
-      quantity: 90,
-      description: "This is an apple",
-      picture: "",
-      created: "2018-12-22",
-      updated: "2019-02-16",
-    },
-  ]);
+  const [productsList, setProductsList] = useState([]);
 
   // item pressed handler, send product data to OrderScreen
   const pressHandler = (product) => {
@@ -44,13 +15,19 @@ export default function ProductsScreen({ navigation }) {
     });
   };
 
-  function fetchProducts() {
+  // function to call api then update the product data
+  async function fetchProducts() {
     setIsLoading(true);
     console.log("fetching product list from server ...");
-    const newProductsList = productsList;
-    setProductsList(newProductsList);
+    const products = await getProducts();
+    setProductsList(products);
     setIsLoading(false);
   }
+
+  // useEffect hook run immediately when the screen loaded
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -78,8 +55,6 @@ export default function ProductsScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
   },
   emptyView: {
     flex: 1,
