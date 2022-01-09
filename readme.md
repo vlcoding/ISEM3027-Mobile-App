@@ -21,7 +21,7 @@ expo init AwesomeProject
 ```
 cd AwesomeProject
 npm install @react-navigation/native @react-navigation/bottom-tabs @react-navigation/stack
-expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view react-native-vector-icons @react-native-async-storage/async-storage react-native-elements
+expo install react-native-gesture-handler react-native-reanimated react-native-screens react-native-safe-area-context @react-native-community/masked-view react-native-vector-icons @react-native-async-storage/async-storage react-native-elements react-native-webview
 ```
 4. Start the project
 ```
