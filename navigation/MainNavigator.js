@@ -12,7 +12,7 @@ const Stack = createStackNavigator();
 export default function MainStackNavigator() {
   const initialLoadingState = {
     isLoading: false,
-    userToken: "something here",
+    userToken: null,
     username: null,
   };
   return (
